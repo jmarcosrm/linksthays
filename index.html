@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Central de Links</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav">
+        <a href="#destaque" class="nav-link active">Destaque</a>
+        <a href="#destaque" class="nav-link">Sobre</a>
+        <a href="#links" class="nav-link">Links</a>
+        <span class="active-underline"></span>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="hero" aria-label="Interação inicial">
+        <div class="hero-inner reveal">
+          <p class="hint">Deslize ou clique para descobrir meus links</p>
+          <div class="selector" id="selector" role="button" aria-label="Chave seletora">
+            <div class="track">
+              <div class="glow"></div>
+            </div>
+            <div class="knob" id="knob" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="destaque" class="section">
+        <div class="card-highlight reveal">
+          <div class="profile">
+            <img src="https://i.im.ge/2025/11/22/4dW1wf.4974410657168035570.jpeg" data-default-large="https://i.im.ge/2025/11/22/4dW1wf.4974410657168035570.jpeg" alt="Foto de Thays Caroline" class="avatar clickable" id="avatarMain" loading="lazy" referrerpolicy="no-referrer" />
+            <div class="bio">
+              <h2>Thays Caroline</h2>
+              <p>
+                Analista e Desenvolvedora Financeira, com pós em IA aplicada a processos.
+                CEO da Prime Flow, transformo dados em decisões eficientes e escaláveis.
+                Cristã, conduzo meu trabalho com propósito e integridade.
+              </p>
+            </div>
+          </div>
+          <div class="roles">
+            <button class="role-btn">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 20h16v-2H4v2zm2-3h2v-7H6v7zm4 0h2v-10H10v10zm4 0h2v-5h-2v5zm4 0h2v-12h-2v12z"/></svg>
+              </span>
+              Analista Financeira
+            </button>
+            <button class="role-btn">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 7v2h6V7H9zm-4 6v2h14v-2H5z"/></svg>
+              </span>
+              Desenvolvedora
+            </button>
+            <button class="role-btn">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M6 7h12V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1H6v10h12V7H6zm6-1h4v1h-4V6z"/></svg>
+              </span>
+              CEO Prime Flow
+            </button>
+            <button class="role-btn">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M11 3h2v10h-2V3zm-6 6h14v2H5V9z"/></svg>
+              </span>
+              Cristã
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="links" class="section">
+        <div class="section-header">
+          <h2>Links</h2>
+          <div class="controls">
+            <button class="arrow left" aria-label="Anterior">&#8592;</button>
+            <button class="arrow right" aria-label="Próximo">&#8594;</button>
+          </div>
+        </div>
+        <div class="carousel-wrapper reveal">
+          <div class="carousel" id="carousel">
+            <div class="card">
+              <div class="thumb" style="background-image:url('https://picsum.photos/seed/prime1/600/400');"></div>
+              <div class="card-body">
+                <h3>Website</h3>
+                <p>Meu portfólio e projetos recentes</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="thumb" style="background-image:url('https://picsum.photos/seed/prime2/600/400');"></div>
+              <div class="card-body">
+                <h3>LinkedIn</h3>
+                <p>Experiências e conexões profissionais</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="thumb" style="background-image:url('https://picsum.photos/seed/prime3/600/400');"></div>
+              <div class="card-body">
+                <h3>Instagram</h3>
+                <p>Conteúdo criativo e bastidores</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="thumb" style="background-image:url('https://picsum.photos/seed/prime4/600/400');"></div>
+              <div class="card-body">
+                <h3>YouTube</h3>
+                <p>Vídeos e tutoriais</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="thumb" style="background-image:url('https://picsum.photos/seed/prime5/600/400');"></div>
+              <div class="card-body">
+                <h3>Newsletter</h3>
+                <p>Insights semanais</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="follow" class="section">
+        <div class="follow-card reveal">
+          <img src="https://i.im.ge/2025/11/22/4dW1wf.4974410657168035570.jpeg" data-default-small="https://i.im.ge/2025/11/22/4dW1wf.4974410657168035570.jpeg" alt="Foto de Thays Caroline menor" class="avatar small" id="avatarSmall" loading="lazy" referrerpolicy="no-referrer" />
+          <div class="follow-text">
+            <h3>Acompanhe meu trabalho</h3>
+            <p>Conteúdos, projetos e novidades nas redes</p>
+            <div class="socials">
+              <a href="#" class="social" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M4 4h4v16H4V4zm6 6h4v2h.1c.6-1.1 2.1-2.3 4.3-2.3 4.6 0 5.4 3 5.4 6.8V20h-4v-4.9c0-1.2 0-2.7-1.7-2.7-1.7 0-2 1.3-2 2.6V20h-4V10z"/></svg>
+              </a>
+              <a href="#" class="social" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+              </a>
+              <a href="#" class="social" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6A3 3 0 0 0 .5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 16 24 12 24 12s0-4-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <input type="file" id="avatarInput" accept="image/*" hidden />
+    <button class="share-btn" id="shareBtn" aria-label="Compartilhar">Compartilhar</button>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
