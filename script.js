@@ -11,6 +11,7 @@ let knobStartLeft = 12;
 let selectorState = 'off';
 let locked = true;
 let listenersBound = false;
+let unlockedOnce = false;
 
 function updateUnderline() {
   const active = document.querySelector('.nav-link.active');
@@ -91,14 +92,8 @@ function setupSelector() {
     if (selectorState === 'off') {
       selectorState = 'on';
       applyStateVisual();
-      unlockPage();
-      hero.classList.add('fade-out');
-      setTimeout(() => {
-        document.getElementById('links').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => hero.style.display = 'none', 600);
-      }, 100);
+      startUnlockFlow();
     } else {
-      selectorState = 'off';
       applyStateVisual();
     }
   };
@@ -118,6 +113,16 @@ function setupSelector() {
     let delta = x - dragStartX;
     let next = Math.min(Math.max(knobStartLeft + delta, 12), 12 + maxSlide);
     knob.style.left = `${next}px`;
+
+    // desbloquear imediatamente ao exceder o limiar durante o arraste
+    const threshold = 12 + maxSlide * 0.7;
+    if (next >= threshold && selectorState === 'off') {
+      dragging = false;
+      selectorState = 'on';
+      knob.style.left = `${12 + maxSlide}px`;
+      applyStateVisual();
+      startUnlockFlow();
+    }
   };
 
   const onPointerUp = () => {
@@ -127,7 +132,7 @@ function setupSelector() {
     knob.style.transition = '';
     selectorState = left > 12 + maxSlide * 0.65 ? 'on' : 'off';
     applyStateVisual();
-    if (selectorState === 'on') trigger();
+    if (selectorState === 'on') startUnlockFlow();
     selector.style.userSelect = '';
   };
 
@@ -150,6 +155,17 @@ function setupSelector() {
     maxSlide = selector.clientWidth - knob.clientWidth - 24;
     applyStateVisual();
   });
+}
+
+function startUnlockFlow() {
+  if (unlockedOnce) return;
+  unlockedOnce = true;
+  unlockPage();
+  hero.classList.add('fade-out');
+  setTimeout(() => {
+    document.getElementById('destaque').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => hero.style.display = 'none', 600);
+  }, 100);
 }
 
 function setupCarousel() {
@@ -226,6 +242,7 @@ function unlockPage() {
 
 function resetSelector() {
   selectorState = 'off';
+  unlockedOnce = false;
   if (hero) {
     hero.style.display = '';
     hero.classList.remove('fade-out');

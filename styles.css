@@ -51,6 +51,7 @@ body.locked #hero { pointer-events: auto; }
 .carousel-wrapper { position: relative; overflow: hidden; }
 .carousel { display: flex; gap: 16px; will-change: transform; padding: 8px 2px; }
 .card { flex: 0 0 clamp(240px, 28vw, 320px); border-radius: 18px; overflow: hidden; background: #0b0b0b; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 24px rgba(0,0,0,0.5); }
+.card-link { display: block; text-decoration: none; color: inherit; }
 .thumb { width: 100%; padding-top: 62%; background-size: cover; background-position: center; }
 .card-body { padding: 12px 14px 16px; }
 .card-body h3 { margin: 0 0 4px; }
