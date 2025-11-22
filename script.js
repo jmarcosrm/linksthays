@@ -41,8 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
   revealOnScroll();
   setupSelector();
   setupCarousel();
+  lazyLoadThumbs();
   setupShare();
   setupAvatarUpload();
+  registerSW();
   lockPage();
   setTimeout(() => {
     window.scrollTo(0, 0);
@@ -187,9 +189,13 @@ function setupCarousel() {
 
   ensureClones();
   window.addEventListener('load', () => setTimeout(ensureClones, 0));
+  lazyLoadThumbs();
 
   let speed = 0.6; // px per frame
   let paused = false;
+  let userPause = false;
+  let autoPause = false;
+  const applyPause = () => { paused = userPause || autoPause; };
   const step = () => {
     if (!paused) {
       container.scrollLeft += speed;
@@ -202,8 +208,13 @@ function setupCarousel() {
   };
   requestAnimationFrame(step);
 
-  container.addEventListener('pointerenter', () => paused = true);
-  container.addEventListener('pointerleave', () => paused = false);
+  container.addEventListener('pointerenter', () => { userPause = true; applyPause(); });
+  container.addEventListener('pointerleave', () => { userPause = false; applyPause(); });
+  document.addEventListener('visibilitychange', () => { autoPause = document.hidden; applyPause(); });
+  try {
+    const io = new IntersectionObserver(es => { autoPause = !es[0].isIntersecting; applyPause(); }, { threshold: 0.01 });
+    io.observe(container);
+  } catch {}
 
   let isDrag = false; let dragX = 0; let startScroll = 0;
   container.addEventListener('mousedown', (e) => { isDrag = true; dragX = e.clientX; startScroll = container.scrollLeft; paused = true; });
@@ -215,6 +226,26 @@ function setupCarousel() {
 
   document.querySelector('.arrow.left').addEventListener('click', () => { container.scrollLeft -= container.clientWidth * 0.8; });
   document.querySelector('.arrow.right').addEventListener('click', () => { container.scrollLeft += container.clientWidth * 0.8; });
+}
+
+function lazyLoadThumbs() {
+  const nodes = document.querySelectorAll('.thumb[data-bg]');
+  if (!nodes.length) return;
+  const setBg = (el) => {
+    const bg = el.getAttribute('data-bg');
+    if (bg) { el.style.backgroundImage = bg; el.removeAttribute('data-bg'); }
+  };
+  if (!('IntersectionObserver' in window)) { nodes.forEach(setBg); return; }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { setBg(e.target); io.unobserve(e.target); } });
+  }, { rootMargin: '200px' });
+  nodes.forEach(el => io.observe(el));
+}
+
+function registerSW() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
 }
 
 function lockPage() {
