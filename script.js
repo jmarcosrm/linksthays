@@ -238,6 +238,7 @@ function lockPage() {
 function unlockPage() {
   locked = false;
   document.body.classList.remove('locked');
+  setTimeout(updateUnderline, 0);
 }
 
 function resetSelector() {
