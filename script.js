@@ -165,13 +165,14 @@ function startUnlockFlow() {
   unlockPage();
   hero.classList.add('fade-out');
   setTimeout(() => {
-    document.getElementById('destaque').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    safeScrollToDestaque('smooth');
     setTimeout(() => hero.style.display = 'none', 600);
   }, 100);
 }
 
 function setupCarousel() {
   const container = document.querySelector('.carousel-wrapper');
+  if (!container || !carousel) return;
   const track = carousel;
   const baseItems = Array.from(track.children);
 
@@ -191,17 +192,22 @@ function setupCarousel() {
   window.addEventListener('load', () => setTimeout(ensureClones, 0));
   lazyLoadThumbs();
 
-  let speed = 0.6; // px per frame
+  let speed = 0.6;
   let paused = false;
   let userPause = false;
   let autoPause = false;
   const applyPause = () => { paused = userPause || autoPause; };
   const step = () => {
     if (!paused) {
-      container.scrollLeft += speed;
-      const max = track.scrollWidth - container.clientWidth - 2;
-      if (container.scrollLeft >= max) {
-        container.scrollLeft = container.scrollLeft - (track.scrollWidth / 3);
+      const tw = track.scrollWidth;
+      const cw = container.clientWidth;
+      if (tw > 0 && cw > 0) {
+        container.scrollLeft += speed;
+        const max = tw - cw - 2;
+        if (container.scrollLeft >= max) {
+          const wrap = tw / 3;
+          container.scrollLeft = Math.max(0, container.scrollLeft - wrap);
+        }
       }
     }
     requestAnimationFrame(step);
@@ -226,6 +232,20 @@ function setupCarousel() {
 
   document.querySelector('.arrow.left').addEventListener('click', () => { container.scrollLeft -= container.clientWidth * 0.8; });
   document.querySelector('.arrow.right').addEventListener('click', () => { container.scrollLeft += container.clientWidth * 0.8; });
+}
+
+function safeScrollToDestaque(behavior = 'auto') {
+  const el = document.getElementById('destaque');
+  if (!el) return;
+  const offset = 64;
+  let tries = 0;
+  const doScroll = () => {
+    const top = window.scrollY + el.getBoundingClientRect().top - offset;
+    window.scrollTo({ top, behavior });
+    tries++;
+    if (tries < 5) requestAnimationFrame(doScroll);
+  };
+  requestAnimationFrame(doScroll);
 }
 
 function lazyLoadThumbs() {
